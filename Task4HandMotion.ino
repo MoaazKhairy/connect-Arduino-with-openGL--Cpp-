@@ -1,4 +1,4 @@
-//#include <Servo.h>
+#include <Servo.h>
 #include <Keypad.h>
 #include <Stepper.h>
 
@@ -17,45 +17,24 @@ Keypad keypad = Keypad( makeKeymap(keys), rowPins, colPins, ROWS, COLS );
 const int stepsPerRevolution = 20;
 Stepper finger1(stepsPerRevolution, 2,3,4,5);
 int fing1Pos=0,fing2Pos=0;                 // Actual steppers positions(0-4096)->(0-360°)
-/*
-Servo finger1;
+
 Servo finger2;
-*/
-int fing1Up = 0; //assign to 1 in Keypad
-int fing1Mid = 0; //assign to 4 in Keypad
-int fing1Bottom = 0; //assign to 7 in Keypad
-int fing2Up = 0; //assign to 2 in Keypad
-int fing2Mid = 0; //assign to 5 in Keypad
-int fing2Bottom = 0; //assign to 8 in Keypad
 
 void setup() {  
   Serial.begin(9600);
-  //finger1.attach(3);
-  //finger2.attach(4);
-   finger1.setSpeed(200);
-   
-  /*pinMode(fing1Up, INPUT);
-  pinMode(fing1Mid, INPUT);
-  pinMode(fing1Bottom, INPUT);
-  pinMode(fing2Up, INPUT);
-  pinMode(fing2Mid, INPUT);
-  pinMode(fing2Bottom, INPUT);*/
+  finger2.attach(7);
+  finger1.setSpeed(200);
+  finger2.write(0);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-  /*if(fing1Up == HIGH && fing1Mid == HIGH && fing1Bottom == HIGH)
-  {
-      C=1;//sending to C#
-      finger1.write(90);
-  }*/
-  char key = keypad.getKey();
+    char key = keypad.getKey();
   
   if (key){
-   if(key == '1') { fing1Up = 1; goToPos(180); Serial.println(fing1Pos);}
-   if(key == '4') { fing1Mid = 1; goToPos(270);Serial.println(fing1Pos);}
-   if(key == '2') { fing2Bottom = 1;Serial.println("fing2Movement1"); }
-   if(key == '5') { fing2Bottom = 1;Serial.println("fing2Movement1"); }
+   if(key == '1') { goToPos(180); Serial.println(fing1Pos);}
+   if(key == '4') { goToPos(270);Serial.println(fing1Pos);}
+   if(key == '2') { finger2.write(0); }
+   if(key == '5') { finger2.write(300); }
   }
   
 }
