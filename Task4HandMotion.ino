@@ -3,19 +3,16 @@
 #include <Stepper.h>
 
 //KeyPad declarations
-const byte ROWS = 4; //four rows
-const byte COLS = 4; //four columns
+const byte ROWS = 2; //four rows
+const byte COLS = 2; //four columns
 char keys[ROWS][COLS] = {
-  {'1','2','3','A'},
-  {'4','5','6','B'},
-  {'7','8','9','C'},
-  {'*','0','#','D'}
-};
-//from right to left A3,A2,A1,A0,2,3,4,5
-byte rowPins[ROWS] = {5, 4, 3, 2}; //connect to the row pinouts of the keypad
-byte colPins[COLS] = {A0, A1, A2, A3}; //connect to the column pinouts of the keypad
+  {'1','2'},
+  {'4','5'},
+  };
+//from right to left - - A1 A0 - - A3 A2
+byte rowPins[ROWS] = { A2, A3}; //connect to the row pinouts of the keypad
+byte colPins[COLS] = {A0 , A1}; //connect to the column pinouts of the keypad
 Keypad keypad = Keypad( makeKeymap(keys), rowPins, colPins, ROWS, COLS );
-
 //Stepper declarations
 const int stepsPerRevolution = 20;
 Stepper finger1(stepsPerRevolution, 2,3,4,5);
@@ -57,10 +54,8 @@ void loop() {
   if (key){
    if(key == '1') { fing1Up = 1; goToPos(180); Serial.println(fing1Pos);}
    if(key == '4') { fing1Mid = 1; goToPos(270);Serial.println(fing1Pos);}
-   if(key == '7') { fing1Bottom = 1;goToPos(360);Serial.println(fing1Pos);}
-   if(key == '2') { fing2Bottom = 1; }
-   if(key == '5') { fing2Bottom = 1; }
-   if(key == '8') { fing2Bottom = 1; }
+   if(key == '2') { fing2Bottom = 1;Serial.println("fing2Movement1"); }
+   if(key == '5') { fing2Bottom = 1;Serial.println("fing2Movement1"); }
   }
   
 }
